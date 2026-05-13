@@ -55,7 +55,11 @@ class SoldeModel extends Model
         if (!$solde) {
             return 0;
         }
-        return (int) $solde->jours_attribues - (int) $solde->jours_pris;
+
+        $joursAttribues = is_array($solde) ? ($solde['jours_attribues'] ?? 0) : ($solde->jours_attribues ?? 0);
+        $joursPris = is_array($solde) ? ($solde['jours_pris'] ?? 0) : ($solde->jours_pris ?? 0);
+
+        return (int) $joursAttribues - (int) $joursPris;
     }
 
     public function deduireJours(int $employeId, int $typeCongeId, int $annee, int $nbJours): bool
@@ -65,13 +69,20 @@ class SoldeModel extends Model
             return false;
         }
 
-        $reste = (int) $solde->jours_attribues - (int) $solde->jours_pris;
+        $soldeId = is_array($solde) ? ($solde['id'] ?? null) : ($solde->id ?? null);
+        $joursAttribues = is_array($solde) ? ($solde['jours_attribues'] ?? 0) : ($solde->jours_attribues ?? 0);
+        $joursPris = is_array($solde) ? ($solde['jours_pris'] ?? 0) : ($solde->jours_pris ?? 0);
+        if (!$soldeId) {
+            return false;
+        }
+
+        $reste = (int) $joursAttribues - (int) $joursPris;
         if ($nbJours > $reste) {
             return false;
         }
 
         return $this->set('jours_pris', 'jours_pris + ' . $nbJours, false)
-            ->where('id', $solde->id)
+            ->where('id', $soldeId)
             ->update();
     }
 
@@ -82,8 +93,13 @@ class SoldeModel extends Model
             return false;
         }
 
+        $soldeId = is_array($solde) ? ($solde['id'] ?? null) : ($solde->id ?? null);
+        if (!$soldeId) {
+            return false;
+        }
+
         return $this->set('jours_pris', 'jours_pris - ' . $nbJours, false)
-            ->where('id', $solde->id)
+            ->where('id', $soldeId)
             ->where('jours_pris >=', $nbJours)
             ->update();
     }
