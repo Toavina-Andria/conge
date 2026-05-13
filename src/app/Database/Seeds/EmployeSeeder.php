@@ -41,6 +41,8 @@ class EmployeSeeder extends Seeder
             ],
         ];
 
-        $this->db->table('employes')->insertBatch($employes);
+        $this->db->table('employes')
+            ->ignore(true)
+            ->insertBatch($employes);
     }
 }

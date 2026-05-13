@@ -18,12 +18,20 @@ class DatabaseSeeder extends Seeder
 
     private function truncateAllTables(): void
     {
-        $this->db->query('SET FOREIGN_KEY_CHECKS = 0');
+        if ($this->db->getPlatform() === 'SQLite3') {
+            $this->db->query('PRAGMA foreign_keys = OFF');
+        } else {
+            $this->db->query('SET FOREIGN_KEY_CHECKS = 0');
+        }
         $this->db->table('soldes')->truncate();
         $this->db->table('conges')->truncate();
         $this->db->table('types_conge')->truncate();
         $this->db->table('employes')->truncate();
         $this->db->table('departements')->truncate();
-        $this->db->query('SET FOREIGN_KEY_CHECKS = 1');
+        if ($this->db->getPlatform() === 'SQLite3') {
+            $this->db->query('PRAGMA foreign_keys = ON');
+        } else {
+            $this->db->query('SET FOREIGN_KEY_CHECKS = 1');
+        }
     }
 }

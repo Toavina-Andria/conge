@@ -109,13 +109,23 @@ class CongeModel extends Model
 
     public function getAbsencesMois(int $mois, int $annee): array
     {
-        return $this->select('conges.*, employes.nom, employes.prenom, employes.departement_id,
-                              types_conge.libelle as type_libelle')
+        $builder = $this->select('conges.*, employes.nom, employes.prenom, employes.departement_id,
+                                  types_conge.libelle as type_libelle')
             ->join('employes', 'employes.id = conges.employe_id')
             ->join('types_conge', 'types_conge.id = conges.type_conge_id')
-            ->where('conges.statut', 'approuvee')
-            ->where('MONTH(conges.date_debut)', $mois)
-            ->where('YEAR(conges.date_debut)', $annee)
+            ->where('conges.statut', 'approuvee');
+
+        if ($this->db->DBDriver === 'SQLite3') {
+            $builder
+                ->where("strftime('%m', conges.date_debut)", sprintf('%02d', $mois))
+                ->where("strftime('%Y', conges.date_debut)", (string) $annee);
+        } else {
+            $builder
+                ->where('MONTH(conges.date_debut)', $mois)
+                ->where('YEAR(conges.date_debut)', $annee);
+        }
+
+        return $builder
             ->orderBy('conges.date_debut', 'ASC')
             ->findAll();
     }

@@ -41,7 +41,7 @@ class SoldeModel extends Model
         ],
     ];
 
-    public function getSolde(int $employeId, int $typeCongeId, int $annee): ?object
+    public function getSolde(int $employeId, int $typeCongeId, int $annee): array|object|null
     {
         return $this->where('employe_id', $employeId)
             ->where('type_conge_id', $typeCongeId)
