@@ -19,6 +19,7 @@
                         <th>Statut</th>
                         <th>Commentaire RH</th>
                         <th>Soumise le</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -36,6 +37,17 @@
                         </td>
                         <td><?= esc($d['commentaire_rh'] ?? '—') ?></td>
                         <td><?= date('d/m/Y H:i', strtotime($d['created_at'])) ?></td>
+                        <td>
+                            <?php if ($d['statut'] === 'en_attente'): ?>
+                            <form action="<?= base_url('employe/annuler/' . $d['id']) ?>" method="post" class="d-inline"
+                                  onsubmit="return confirm('Annuler cette demande de congé ?')">
+                                <?= csrf_field() ?>
+                                <button type="submit" class="btn btn-outline-danger btn-sm">
+                                    <i class="fas fa-times"></i> Annuler
+                                </button>
+                            </form>
+                            <?php endif; ?>
+                        </td>
                     </tr>
                     <?php endforeach; ?>
                 </tbody>

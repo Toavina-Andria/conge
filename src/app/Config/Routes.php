@@ -17,6 +17,7 @@ $routes->group('/employe', ['filter' => 'auth:employe'], static function ($route
     $routes->get('demande', 'Employe::demande');
     $routes->post('demande', 'Employe::store');
     $routes->get('mes-demandes', 'Employe::mesDemandes');
+    $routes->post('annuler/(:num)', 'Employe::annuler/$1');
 });
 
 $routes->group('/rh', ['filter' => 'auth:rh'], static function ($routes) {

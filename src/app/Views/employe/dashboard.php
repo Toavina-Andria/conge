@@ -91,6 +91,7 @@
                             <th>Au</th>
                             <th>Jours</th>
                             <th>Statut</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -104,6 +105,17 @@
                                 <span class="badge bg-<?= $d['statut'] === 'approuvee' ? 'success' : ($d['statut'] === 'refusee' ? 'danger' : ($d['statut'] === 'annulee' ? 'secondary' : 'warning text-dark')) ?>">
                                     <?= $d['statut'] ?>
                                 </span>
+                            </td>
+                            <td>
+                                <?php if ($d['statut'] === 'en_attente'): ?>
+                                <form action="<?= base_url('employe/annuler/' . $d['id']) ?>" method="post" class="d-inline"
+                                      onsubmit="return confirm('Annuler cette demande ?')">
+                                    <?= csrf_field() ?>
+                                    <button type="submit" class="btn btn-outline-danger btn-sm">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </form>
+                                <?php endif; ?>
                             </td>
                         </tr>
                         <?php endforeach; ?>

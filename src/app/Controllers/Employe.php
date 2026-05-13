@@ -148,6 +148,29 @@ class Employe extends BaseController
         ]));
     }
 
+    public function annuler(int $id)
+    {
+        if ($redirect = $this->requireRole('employe')) return $redirect;
+
+        $congeModel = new CongeModel();
+        $demande    = $congeModel->find($id);
+
+        if (!$demande || (int) $demande['employe_id'] !== (int) $this->employe['id']) {
+            return redirect()->to('employe/mes-demandes')
+                ->with('error', 'Demande introuvable.');
+        }
+
+        if ($demande['statut'] !== 'en_attente') {
+            return redirect()->to('employe/mes-demandes')
+                ->with('error', 'Seules les demandes en attente peuvent être annulées.');
+        }
+
+        $congeModel->update($id, ['statut' => 'annulee']);
+
+        return redirect()->to('employe/mes-demandes')
+            ->with('success', 'Votre demande de congé a été annulée.');
+    }
+
     private function redemander()
     {
         $typeCongeModel = new TypeCongeModel();
