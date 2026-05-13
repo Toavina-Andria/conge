@@ -92,7 +92,7 @@ class Employe extends BaseController
                 ->withInput();
         }
 
-        $nbJours = $this->compterJoursOuvrables($dateDebut, $dateFin);
+        $nbJours = compter_jours_ouvrables($dateDebut, $dateFin);
         if ($nbJours <= 0) {
             return redirect()->back()
                 ->with('error', 'La période ne contient aucun jour ouvrable.')
@@ -191,21 +191,4 @@ class Employe extends BaseController
         ]));
     }
 
-    private function compterJoursOuvrables(string $debut, string $fin): int
-    {
-        $start = new \DateTime($debut);
-        $end   = new \DateTime($fin);
-        $end->modify('+1 day');
-
-        $jours = 0;
-        $interval = new \DateInterval('P1D');
-
-        foreach (new \DatePeriod($start, $interval, $end) as $date) {
-            if ((int) $date->format('N') < 6) {
-                $jours++;
-            }
-        }
-
-        return $jours;
-    }
 }
