@@ -119,7 +119,7 @@
     </nav>
     <?php endif; ?>
 
-    <main class="main-content">
+    <main class="main-content<?= !$employe ? ' main-content--full' : '' ?>">
         <?php if ($employe): ?>
         <header class="topbar">
             <h1 class="page-title"><?= $this->renderSection('page_title') ?: 'Tableau de bord' ?></h1>
