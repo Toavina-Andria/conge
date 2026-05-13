@@ -63,6 +63,7 @@ class Employe extends BaseController
         return view('employe/demande', $this->viewData([
             'types'         => $types,
             'soldeParType'  => $soldeParType,
+            'soldes'        => $soldes,
             'validation'    => null,
         ]));
     }
@@ -262,6 +263,7 @@ class Employe extends BaseController
         return view('employe/demande', $this->viewData([
             'types'        => $types,
             'soldeParType' => $soldeParType,
+            'soldes'       => $soldes,
             'validation'   => $this->validator,
         ]));
     }
