@@ -41,7 +41,7 @@ class Admin extends BaseController
         $employes     = $employeModel
             ->select('employes.*, departements.nom as departement_nom')
             ->join('departements', 'departements.id = employes.departement_id', 'left')
-            ->orderBy('employes.created_at', 'DESC')
+            ->orderBy('employes.date_embauche', 'DESC')
             ->findAll();
 
         return view('admin/employes/index', $this->viewData([
