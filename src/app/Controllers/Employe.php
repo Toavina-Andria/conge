@@ -3,6 +3,8 @@
 namespace App\Controllers;
 
 use App\Models\CongeModel;
+use App\Models\DepartementModel;
+use App\Models\EmployeModel;
 use App\Models\SoldeModel;
 use App\Models\TypeCongeModel;
 
@@ -160,15 +162,88 @@ class Employe extends BaseController
                 ->with('error', 'Demande introuvable.');
         }
 
-        if ($demande['statut'] !== 'en_attente') {
+        if (!in_array($demande['statut'], ['en_attente', 'approuvee'])) {
             return redirect()->to('employe/mes-demandes')
-                ->with('error', 'Seules les demandes en attente peuvent être annulées.');
+                ->with('error', 'Cette demande ne peut plus être annulée.');
         }
+
+        $this->recrediterSoldeSiNecessaire($demande);
 
         $congeModel->update($id, ['statut' => 'annulee']);
 
         return redirect()->to('employe/mes-demandes')
             ->with('success', 'Votre demande de congé a été annulée.');
+    }
+
+    public function solde()
+    {
+        if ($redirect = $this->requireRole('employe')) return $redirect;
+
+        $soldeModel = new SoldeModel();
+        $soldes     = $soldeModel->getSoldesEmploye($this->employe['id']);
+
+        return view('employe/solde', $this->viewData([
+            'soldes' => $soldes,
+        ]));
+    }
+
+    public function profil()
+    {
+        if ($redirect = $this->requireRole('employe')) return $redirect;
+
+        $employeModel     = new EmployeModel();
+        $departementModel = new DepartementModel();
+        $employe          = $employeModel
+            ->select('employes.*, departements.nom as departement_nom')
+            ->join('departements', 'departements.id = employes.departement_id', 'left')
+            ->find($this->employe['id']);
+
+        return view('employe/profil', $this->viewData([
+            'employe_info' => $employe,
+            'validation'   => null,
+        ]));
+    }
+
+    public function profilUpdate()
+    {
+        if ($redirect = $this->requireRole('employe')) return $redirect;
+
+        $employeModel = new EmployeModel();
+        $employe      = $employeModel->find($this->employe['id']);
+
+        $data = [
+            'id'      => $this->employe['id'],
+            'nom'     => $this->request->getPost('nom'),
+            'prenom'  => $this->request->getPost('prenom'),
+            'email'   => $this->request->getPost('email'),
+        ];
+
+        $password = $this->request->getPost('password');
+        if (!empty($password)) {
+            $data['password'] = $password;
+        }
+
+        $employeModel->setValidationRule('role', 'permit_empty');
+        $employeModel->setValidationRule('departement_id', 'permit_empty');
+        $employeModel->setValidationRule('date_embauche', 'permit_empty');
+
+        if (!$employeModel->save($data)) {
+            $departementModel = new DepartementModel();
+            $employeInfo = $employeModel
+                ->select('employes.*, departements.nom as departement_nom')
+                ->join('departements', 'departements.id = employes.departement_id', 'left')
+                ->find($this->employe['id']);
+
+            return view('employe/profil', $this->viewData([
+                'employe_info' => $employeInfo,
+                'validation'   => $employeModel->errors(),
+            ]));
+        }
+
+        $this->session->set('employe', $employeModel->find($this->employe['id']));
+
+        return redirect()->to('employe/profil')
+            ->with('success', 'Profil mis à jour avec succès.');
     }
 
     private function redemander()

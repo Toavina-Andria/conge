@@ -18,12 +18,43 @@ $routes->group('/employe', ['filter' => 'auth:employe'], static function ($route
     $routes->post('demande', 'Employe::store');
     $routes->get('mes-demandes', 'Employe::mesDemandes');
     $routes->post('annuler/(:num)', 'Employe::annuler/$1');
+    $routes->get('solde', 'Employe::solde');
+    $routes->get('profil', 'Employe::profil');
+    $routes->post('profil', 'Employe::profilUpdate');
 });
 
 $routes->group('/rh', ['filter' => 'auth:rh'], static function ($routes) {
     $routes->get('/', 'Rh::index');
+    $routes->get('demandes', 'Rh::demandes');
+    $routes->get('demandes/(:num)', 'Rh::detail/$1');
+    $routes->post('traiter/(:num)', 'Rh::traiter/$1');
+    $routes->get('soldes', 'Rh::soldes');
 });
 
 $routes->group('/admin', ['filter' => 'auth:admin'], static function ($routes) {
     $routes->get('/', 'Admin::index');
+    $routes->get('employes', 'Admin::employes');
+    $routes->get('employes/creer', 'Admin::employeCreer');
+    $routes->post('employes/creer', 'Admin::employeStore');
+    $routes->get('employes/(:num)', 'Admin::employeEditer/$1');
+    $routes->post('employes/(:num)', 'Admin::employeUpdate/$1');
+    $routes->post('employes/toggle/(:num)', 'Admin::employeToggle/$1');
+    $routes->get('departements', 'Admin::departements');
+    $routes->get('departements/creer', 'Admin::departementCreer');
+    $routes->post('departements/creer', 'Admin::departementStore');
+    $routes->get('departements/(:num)', 'Admin::departementEditer/$1');
+    $routes->post('departements/(:num)', 'Admin::departementUpdate/$1');
+    $routes->post('departements/supprimer/(:num)', 'Admin::departementSupprimer/$1');
+    $routes->get('types-conge', 'Admin::typesConge');
+    $routes->get('types-conge/creer', 'Admin::typeCongeCreer');
+    $routes->post('types-conge/creer', 'Admin::typeCongeStore');
+    $routes->get('types-conge/(:num)', 'Admin::typeCongeEditer/$1');
+    $routes->post('types-conge/(:num)', 'Admin::typeCongeUpdate/$1');
+    $routes->post('types-conge/supprimer/(:num)', 'Admin::typeCongeSupprimer/$1');
+    $routes->get('soldes', 'Admin::soldes');
+    $routes->get('soldes/creer', 'Admin::soldesCreer');
+    $routes->post('soldes/creer', 'Admin::soldesStore');
+    $routes->get('soldes/(:num)', 'Admin::soldesEditer/$1');
+    $routes->post('soldes/(:num)', 'Admin::soldesUpdate/$1');
+    $routes->get('historique', 'Admin::historique');
 });

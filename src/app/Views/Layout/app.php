@@ -64,7 +64,7 @@
                         </a>
                     </li>
                     <li class="nav-item mb-1">
-                        <a href="<?= base_url('rh/demandes') ?>" class="nav-link text-white <?= strpos(current_url(), '/rh/demandes') !== false ? 'active bg-secondary rounded' : '' ?>">
+                        <a href="<?= base_url('rh/demandes?statut=en_attente') ?>" class="nav-link text-white <?= strpos(current_url(), '/rh/demandes') !== false ? 'active bg-secondary rounded' : '' ?>">
                             <i class="fas fa-inbox fa-fw me-2"></i>Demandes en attente
                         </a>
                     </li>
@@ -93,6 +93,11 @@
                     <li class="nav-item mb-1">
                         <a href="<?= base_url('employe/solde') ?>" class="nav-link text-white <?= strpos(current_url(), '/employe/solde') !== false ? 'active bg-secondary rounded' : '' ?>">
                             <i class="fas fa-wallet fa-fw me-2"></i>Mon solde
+                        </a>
+                    </li>
+                    <li class="nav-item mb-1">
+                        <a href="<?= base_url('employe/profil') ?>" class="nav-link text-white <?= strpos(current_url(), '/employe/profil') !== false ? 'active bg-secondary rounded' : '' ?>">
+                            <i class="fas fa-user-cog fa-fw me-2"></i>Mon profil
                         </a>
                     </li>
                 <?php endif; ?>
