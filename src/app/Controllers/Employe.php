@@ -7,8 +7,10 @@ use App\Models\SoldeModel;
 
 class Employe extends BaseController
 {
-    public function index(): string
+    public function index()
     {
+        if ($redirect = $this->requireRole('employe')) return $redirect;
+
         $employeId  = $this->employe['id'];
 
         $soldeModel = new SoldeModel();

@@ -7,19 +7,20 @@ use App\Models\EmployeModel;
 
 class Rh extends BaseController
 {
-    public function index(): string
+    public function index()
     {
-        $congeModel  = new CongeModel();
+        if ($redirect = $this->requireRole('rh')) return $redirect;
+
+        $congeModel   = new CongeModel();
         $employeModel = new EmployeModel();
 
         $mois  = date('n');
         $annee = date('Y');
 
-        $absences = $congeModel->getAbsencesMois($mois, $annee);
-
-        $en_attente       = count($congeModel->getDemandesEnAttente());
-        $approuvees_mois  = count($congeModel->getAbsencesMois($mois, $annee));
-        $nb_employes      = $employeModel->countAll();
+        $absences        = $congeModel->getAbsencesMois($mois, $annee);
+        $en_attente      = count($congeModel->getDemandesEnAttente());
+        $approuvees_mois = count($absences);
+        $nb_employes     = $employeModel->countAll();
 
         return view('rh/dashboard', $this->viewData([
             'absences'        => $absences,

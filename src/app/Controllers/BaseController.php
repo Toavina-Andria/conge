@@ -29,4 +29,12 @@ abstract class BaseController extends Controller
             'role'    => $this->role,
         ], $data);
     }
+
+    protected function requireRole(string $role)
+    {
+        if ($this->role !== $role) {
+            return redirect()->to('/')
+                ->with('error', 'Accès non autorisé.');
+        }
+    }
 }

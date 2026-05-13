@@ -8,15 +8,16 @@ use App\Models\EmployeModel;
 
 class Admin extends BaseController
 {
-    public function index(): string
+    public function index()
     {
-        $congeModel      = new CongeModel();
-        $employeModel    = new EmployeModel();
+        if ($redirect = $this->requireRole('admin')) return $redirect;
+
+        $congeModel       = new CongeModel();
+        $employeModel     = new EmployeModel();
         $departementModel = new DepartementModel();
 
-        $mois  = date('n');
-        $annee = date('Y');
-
+        $mois     = date('n');
+        $annee    = date('Y');
         $absences = $congeModel->getAbsencesMois($mois, $annee);
 
         return view('admin/dashboard', $this->viewData([

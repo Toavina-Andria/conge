@@ -12,14 +12,14 @@ $routes->get('/register', 'Auth::register');
 $routes->post('/register', 'Auth::store');
 $routes->get('/logout', 'Auth::logout');
 
-$routes->group('/employe', static function ($routes) {
+$routes->group('/employe', ['filter' => 'auth:employe'], static function ($routes) {
     $routes->get('/', 'Employe::index');
 });
 
-$routes->group('/rh', static function ($routes) {
+$routes->group('/rh', ['filter' => 'auth:rh'], static function ($routes) {
     $routes->get('/', 'Rh::index');
 });
 
-$routes->group('/admin', static function ($routes) {
+$routes->group('/admin', ['filter' => 'auth:admin'], static function ($routes) {
     $routes->get('/', 'Admin::index');
 });
