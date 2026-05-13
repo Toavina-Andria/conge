@@ -41,7 +41,7 @@
 
 <div class="card shadow mt-2">
     <div class="card-header">
-        <h5 class="mb-0">Absences du mois (<?= date('F Y') ?>)</h5>
+        <h5 class="mb-0">Absences du mois (<?= strftime('%B %Y') ?>)</h5>
     </div>
     <div class="card-body">
         <?php if (!empty($absences)): ?>
@@ -59,7 +59,7 @@
                 <?php foreach ($absences as $a): ?>
                 <tr>
                     <td><?= esc($a['prenom'] . ' ' . $a['nom']) ?></td>
-                    <td><?= esc($a['libelle']) ?></td>
+                    <td><?= esc($a['type_libelle'] ?? $a['libelle'] ?? '') ?></td>
                     <td><?= date('d/m/Y', strtotime($a['date_debut'])) ?></td>
                     <td><?= date('d/m/Y', strtotime($a['date_fin'])) ?></td>
                     <td><?= (int) $a['nb_jours'] ?></td>

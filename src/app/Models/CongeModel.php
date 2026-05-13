@@ -88,9 +88,13 @@ class CongeModel extends Model
     public function getDemandesFiltrees(?string $statut = null, ?int $departementId = null): array
     {
         $this->select('conges.*, employes.nom, employes.prenom, employes.departement_id,
-                       types_conge.libelle as type_libelle')
+                       types_conge.libelle as type_libelle,
+                       departements.nom as departement_nom,
+                       traite.nom as traite_nom, traite.prenom as traite_prenom')
             ->join('employes', 'employes.id = conges.employe_id')
-            ->join('types_conge', 'types_conge.id = conges.type_conge_id');
+            ->join('types_conge', 'types_conge.id = conges.type_conge_id')
+            ->join('departements', 'departements.id = employes.departement_id', 'left')
+            ->join('employes as traite', 'traite.id = conges.traite_par', 'left');
 
         if ($statut) {
             $this->where('conges.statut', $statut);

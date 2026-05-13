@@ -37,6 +37,11 @@
                         </a>
                     </li>
                     <li class="nav-item mb-1">
+                        <a href="<?= base_url('admin/demandes') ?>" class="nav-link text-white <?= strpos(current_url(), '/admin/demandes') !== false ? 'active bg-secondary rounded' : '' ?>">
+                            <i class="fas fa-calendar-check fa-fw me-2"></i>Demandes
+                        </a>
+                    </li>
+                    <li class="nav-item mb-1">
                         <a href="<?= base_url('admin/departements') ?>" class="nav-link text-white <?= strpos(current_url(), '/admin/departements') !== false ? 'active bg-secondary rounded' : '' ?>">
                             <i class="fas fa-building fa-fw me-2"></i>Départements
                         </a>

@@ -379,6 +379,31 @@ class Admin extends BaseController
             ->with('success', 'Type de congé supprimé.');
     }
 
+    // ─── Demandes ────────────────────────────────────────────────────────────
+
+    public function demandes()
+    {
+        if ($redirect = $this->requireRole('admin')) return $redirect;
+
+        $congeModel       = new CongeModel();
+        $departementModel = new DepartementModel();
+
+        $statut        = $this->request->getGet('statut');
+        $departementId = $this->request->getGet('departement_id');
+
+        $demandes = $congeModel->getDemandesFiltrees(
+            $statut ?: null,
+            $departementId ? (int) $departementId : null
+        );
+
+        return view('admin/demandes/index', $this->viewData([
+            'demandes'           => $demandes,
+            'departements'       => $departementModel->findAll(),
+            'filtre_statut'      => $statut,
+            'filtre_departement' => $departementId,
+        ]));
+    }
+
     // ─── Soldes annuels ──────────────────────────────────────────────────────
 
     public function soldesCreer()

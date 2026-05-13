@@ -51,6 +51,7 @@ $routes->group('/admin', ['filter' => 'auth:admin'], static function ($routes) {
     $routes->get('types-conge/(:num)', 'Admin::typeCongeEditer/$1');
     $routes->post('types-conge/(:num)', 'Admin::typeCongeUpdate/$1');
     $routes->post('types-conge/supprimer/(:num)', 'Admin::typeCongeSupprimer/$1');
+    $routes->get('demandes', 'Admin::demandes');
     $routes->get('soldes', 'Admin::soldes');
     $routes->get('soldes/creer', 'Admin::soldesCreer');
     $routes->post('soldes/creer', 'Admin::soldesStore');
