@@ -25,6 +25,10 @@
                     </div>
                     <button type="submit" class="btn btn-primary w-100">Se connecter</button>
                 </form>
+
+                <p class="text-center mt-3 mb-0">
+                    Pas encore de compte ? <a href="<?= base_url('register') ?>">S'inscrire</a>
+                </p>
             </div>
         </div>
     </div>
