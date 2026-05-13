@@ -1,0 +1,6 @@
+src/writable/debugbar/
+src/writable/session/
+src/writable/logs/
+src/writable/cache/
+src/writable/uploads/
+src/.env
