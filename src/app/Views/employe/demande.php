@@ -6,58 +6,51 @@
 <?= $this->section('content') ?>
 <div class="row justify-content-center">
     <div class="col-md-6">
-        <div class="card shadow">
-            <div class="card-body p-4">
+        <div class="card">
+            <div class="card-body">
                 <form action="<?= base_url('employe/demande') ?>" method="post">
                     <?= csrf_field() ?>
 
-                    <div class="mb-3">
-                        <label for="type_conge_id" class="form-label">Type de congé</label>
-                        <select name="type_conge_id" id="type_conge_id" class="form-select <?= $validation && $validation->hasError('type_conge_id') ? 'is-invalid' : '' ?>" required>
+                    <div class="form-group">
+                        <label class="form-label">Type de congé</label>
+                        <select name="type_conge_id" class="form-select <?= $validation && $validation->hasError('type_conge_id') ? 'is-invalid' : '' ?>" required>
                             <option value="">— Sélectionner —</option>
                             <?php foreach ($types as $t): ?>
                             <option value="<?= $t['id'] ?>" <?= old('type_conge_id') == $t['id'] ? 'selected' : '' ?>>
-                                <?= esc($t['libelle']) ?>
-                                (reste: <?= $soldeParType[$t['id']] ?? 'N/A' ?> j)
+                                <?= esc($t['libelle']) ?> (reste: <?= $soldeParType[$t['id']] ?? 'N/A' ?> j)
                             </option>
                             <?php endforeach; ?>
                         </select>
                         <?php if ($validation && $validation->hasError('type_conge_id')): ?>
-                        <div class="invalid-feedback"><?= $validation->getError('type_conge_id') ?></div>
+                        <span class="invalid-feedback"><?= $validation->getError('type_conge_id') ?></span>
                         <?php endif; ?>
                     </div>
 
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label for="date_debut" class="form-label">Date de début</label>
-                            <input type="date" name="date_debut" id="date_debut"
-                                   class="form-control <?= $validation && $validation->hasError('date_debut') ? 'is-invalid' : '' ?>"
-                                   value="<?= old('date_debut') ?>" required>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Date de début</label>
+                            <input type="date" name="date_debut" class="form-input <?= $validation && $validation->hasError('date_debut') ? 'is-invalid' : '' ?>" value="<?= old('date_debut') ?>" required>
                             <?php if ($validation && $validation->hasError('date_debut')): ?>
-                            <div class="invalid-feedback"><?= $validation->getError('date_debut') ?></div>
+                            <span class="invalid-feedback"><?= $validation->getError('date_debut') ?></span>
                             <?php endif; ?>
                         </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="date_fin" class="form-label">Date de fin</label>
-                            <input type="date" name="date_fin" id="date_fin"
-                                   class="form-control <?= $validation && $validation->hasError('date_fin') ? 'is-invalid' : '' ?>"
-                                   value="<?= old('date_fin') ?>" required>
+                        <div class="form-group">
+                            <label class="form-label">Date de fin</label>
+                            <input type="date" name="date_fin" class="form-input <?= $validation && $validation->hasError('date_fin') ? 'is-invalid' : '' ?>" value="<?= old('date_fin') ?>" required>
                             <?php if ($validation && $validation->hasError('date_fin')): ?>
-                            <div class="invalid-feedback"><?= $validation->getError('date_fin') ?></div>
+                            <span class="invalid-feedback"><?= $validation->getError('date_fin') ?></span>
                             <?php endif; ?>
                         </div>
                     </div>
 
-                    <div class="mb-3">
-                        <label for="motif" class="form-label">Motif <small class="text-muted">(optionnel)</small></label>
-                        <textarea name="motif" id="motif" rows="3" class="form-control"><?= old('motif') ?></textarea>
+                    <div class="form-group">
+                        <label class="form-label">Motif <span class="text-muted">(optionnel)</span></label>
+                        <textarea name="motif" rows="3" class="form-textarea"><?= old('motif') ?></textarea>
                     </div>
 
-                    <div class="d-grid">
-                        <button type="submit" class="btn btn-primary">
-                            <i class="fas fa-paper-plane me-2"></i>Soumettre la demande
-                        </button>
-                    </div>
+                    <button type="submit" class="btn btn--primary w-100">
+                        <i class="fas fa-paper-plane"></i>Soumettre la demande
+                    </button>
                 </form>
             </div>
         </div>
