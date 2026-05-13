@@ -5,10 +5,14 @@
 <?= $this->section('content') ?>
 <div class="auth-layout">
     <div class="auth-card">
-        <div class="card">
-            <div class="card-body" style="padding:32px;">
+        <div class="card auth-card--highlight">
+            <div class="card-body auth-card-body">
                 <div class="auth-logo">
-                    <i class="fas fa-calendar-alt me-2"></i>Gestion des Congés
+                    <div class="auth-logo-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <h2>Gestion des Congés</h2>
+                    <p class="auth-tagline">Connectez-vous à votre espace</p>
                 </div>
 
                 <?php if (session()->getFlashdata('error')): ?>
@@ -22,11 +26,11 @@
                     <?= csrf_field() ?>
                     <div class="form-group">
                         <label class="form-label">Email</label>
-                        <input type="email" name="email" class="form-input" required autofocus>
+                        <input type="email" name="email" class="form-input" placeholder="vous@exemple.com" required autofocus>
                     </div>
                     <div class="form-group">
                         <label class="form-label">Mot de passe</label>
-                        <input type="password" name="password" class="form-input" required>
+                        <input type="password" name="password" class="form-input" placeholder="••••••••" required>
                     </div>
                     <button type="submit" class="btn btn--primary btn--block">Se connecter</button>
                 </form>
