@@ -14,6 +14,9 @@ $routes->get('/logout', 'Auth::logout');
 
 $routes->group('/employe', ['filter' => 'auth:employe'], static function ($routes) {
     $routes->get('/', 'Employe::index');
+    $routes->get('demande', 'Employe::demande');
+    $routes->post('demande', 'Employe::store');
+    $routes->get('mes-demandes', 'Employe::mesDemandes');
 });
 
 $routes->group('/rh', ['filter' => 'auth:rh'], static function ($routes) {

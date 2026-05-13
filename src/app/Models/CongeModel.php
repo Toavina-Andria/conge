@@ -53,7 +53,7 @@ class CongeModel extends Model
 
     public function getDemandesEmploye(int $employeId): array
     {
-        return $this->select('conges.*, types_conge.libelle as type_libelle')
+        return $this->select('conges.*, types_conge.libelle')
             ->join('types_conge', 'types_conge.id = conges.type_conge_id')
             ->where('conges.employe_id', $employeId)
             ->orderBy('conges.created_at', 'DESC')
