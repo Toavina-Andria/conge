@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= $this->renderSection('title') ?: 'Gestion des Congés' ?></title>
+    <link href="<?= base_url('asset/bootstrap/css/bootstrap.min.css') ?>" rel="stylesheet">
     <link href="<?= base_url('css/app.css') ?>" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
@@ -15,7 +16,7 @@
         <div class="sidebar-brand">
             <div class="sidebar-logo-icon"><i class="fas fa-briefcase"></i></div>
             <div class="sidebar-brand-name">
-                TechMada RH
+                TechMada RH ETU004055 & ETU4235
                 <span><?= $role === 'admin' ? 'Administration' : ($role === 'rh' ? 'Espace RH' : 'Espace employé') ?></span>
             </div>
         </div>
@@ -89,7 +90,7 @@
         </div>
 
         <div class="footer-app">
-            <i class="far fa-copyright"></i> <?= date('Y') ?> <span>TechMada RH</span> &mdash; Projet CodeIgniter 4
+            <i class="far fa-copyright"></i> <?= date('Y') ?> <span>TechMada RH <b>ETU004055 & ETU4235</b></span> &mdash; Projet CodeIgniter 4
         </div>
     </div>
 </div>
@@ -106,5 +107,6 @@
     <?= $this->renderSection('content') ?>
 </div>
 <?php endif; ?>
+    <script src="<?= base_url('asset/bootstrap/js/bootstrap.bundle.min.js') ?>"></script>
 </body>
 </html>

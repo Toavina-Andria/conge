@@ -4,7 +4,8 @@
 <div class="auth-split">
     <div class="auth-left">
         <div>
-            <p class="auth-left-brand">TechMada RH<span>Gestion des congés</span></p>
+            <p class="auth-left-brand">TechMada RH <span>Gestion des congés</span>
+        <b>ETU004055 & ETU4235</b></p>
             <p class="auth-left-text" style="margin-top:2rem">
                 <strong>Bienvenue sur votre espace RH.</strong>
                 Gérez vos demandes de congés, consultez votre solde et suivez l'état de vos demandes en temps réel.
