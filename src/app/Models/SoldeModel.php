@@ -81,7 +81,8 @@ class SoldeModel extends Model
             return false;
         }
 
-        return $this->set('jours_pris', 'jours_pris + ' . $nbJours, false)
+        return (bool) $this->builder()
+            ->set('jours_pris', 'jours_pris + ' . $nbJours, false)
             ->where('id', $soldeId)
             ->update();
     }
@@ -98,7 +99,8 @@ class SoldeModel extends Model
             return false;
         }
 
-        return $this->set('jours_pris', 'jours_pris - ' . $nbJours, false)
+        return (bool) $this->builder()
+            ->set('jours_pris', 'jours_pris - ' . $nbJours, false)
             ->where('id', $soldeId)
             ->where('jours_pris >=', $nbJours)
             ->update();

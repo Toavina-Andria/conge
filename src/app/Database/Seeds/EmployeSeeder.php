@@ -12,7 +12,7 @@ class EmployeSeeder extends Seeder
             [
                 'nom'             => 'Dupont',
                 'prenom'          => 'Marc',
-                'email'           => 'marc.dupont@company.com',
+                'email'           => 'admin@techmada.mg',
                 'password'        => password_hash('admin123', PASSWORD_DEFAULT),
                 'role'            => 'admin',
                 'departement_id'  => 1,
@@ -22,9 +22,9 @@ class EmployeSeeder extends Seeder
             [
                 'nom'             => 'Martin',
                 'prenom'          => 'Sophie',
-                'email'           => 'sophie.martin@company.com',
-                'password'        => password_hash('employe123', PASSWORD_DEFAULT),
-                'role'            => 'employe',
+                'email'           => 'rh@techmada.mg',
+                'password'        => password_hash('rh123', PASSWORD_DEFAULT),
+                'role'            => 'rh',
                 'departement_id'  => 1,
                 'date_embauche'   => '2022-03-01',
                 'actif'           => 1,
@@ -32,8 +32,8 @@ class EmployeSeeder extends Seeder
             [
                 'nom'             => 'Leroy',
                 'prenom'          => 'Julie',
-                'email'           => 'julie.leroy@company.com',
-                'password'        => password_hash('employe123', PASSWORD_DEFAULT),
+                'email'           => 'employe@techmada.mg',
+                'password'        => password_hash('emp123', PASSWORD_DEFAULT),
                 'role'            => 'employe',
                 'departement_id'  => 2,
                 'date_embauche'   => '2023-06-15',
